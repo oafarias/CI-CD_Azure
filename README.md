@@ -66,9 +66,9 @@ Acesse seu IP pelo navegador. Se aparecer **Welcome to Nginx** funcionou!
 |----|----|----|
 |HOST|Digite o IP de sua VM|Painel Azure|
 |USER|O nome do usuário da VM|Painel Azure|
-|KEY|Coloque o Key (sem o .pub)*|No Mac: `cat ~/.ssh/id_ed25519` No Windows (PowerShell): `cat ~/.ssh/id_ed25519 | clip`|
+|KEY|Coloque o Key (sem o .pub)*|No Mac/Windows (PowerShell): `cat ~/.ssh/id_ed25519`|
 
-- *Para copiar o arquivo rode no iTerm local o comando `cat ~/.ssh/id_ed25519 | pbcopy`
+- *Para copiar o arquivo rode no iTerm local o comando no Mac: `cat ~/.ssh/id_ed25519 | pbcopy`. No Windows: `cat ~/.ssh/id_ed25519 | clip`
 ---
 11. Crie uma pasta em seu pc e a abra com o VS Code e realize o pull do seu repositorio `git clone https://github.com/SEU_USER/SEU_REPO.git`
 ---
