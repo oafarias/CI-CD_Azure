@@ -1,0 +1,33 @@
+name : Deploy to Azure VM
+
+on:
+    push:
+        branches: [ main ]
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Deploy vai SSH
+              uses: appleboy/ssh-action@master
+              with:
+                host: ${{ secrets.HOST }}
+                username: ${{ secrets.USER }}
+                key: ${{ secrets.KEY }}
+                port: 22
+                script: |
+                    mkdir -p ~/app
+                    cd ~/app
+
+                    docker rm -f $(docker ps -aq) || true
+
+                    if [ ! -d ".git" ]; then
+                        echo "Clonando repositorio pela primeira vez..."
+                        git clone https://github.com/oafarias/CI-CD_Azure.git .
+                    else
+                        echo "Atualizando repositório existente..."
+                        git pull origin main
+                    fi
+
+                    docker compose down
+                    docker compose up -d --build
