@@ -139,7 +139,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return "<h1>Hello World!</h1><p>Se voce esta vendo isso o CI/CD funcionou!</p>"
+    return """<h1>Hello World!</h1><p>Se voce esta vendo isso o CI/CD funcionou!</p>"""
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)
@@ -209,13 +209,13 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      -./Caddyfile:/etc/caddy/Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
       - web
 
-Volumes:
+volumes:
     caddy_data:
     caddy_config:
 ```
@@ -291,7 +291,7 @@ if __name__ == '__main__':
     <div class="container">
         <div class="glow-box">
             <h1 class="glitch" data-text="Deploy Concluído!">Deploy Concluído!</h1>
-            <p id="typewriter" class="status-text typewriter"></p>
+            <span id="typewriter" class="status-text typewriter"></span>
             <div class="badges">
                 <span class="badge azure">Azure VM</span>
                 <span class="badge docker">Docker</span>
@@ -415,7 +415,7 @@ document.getElementById('action-btn').addEventListener('click', () => {
 ## Parte 9. Teste a pagina com o ambiente virtual isolado(venv)
 31. Crie o ambiente virtual: `python -m venv .venv`
 ---
-32. Ative o ambiente virtual: No Windows: `.venv\Scripts\activate`, No Mac:`source venv/bin/activate`.
+32. Ative o ambiente virtual: No Windows: `.venv\Scripts\activate`, No Mac:`source .venv/bin/activate`.
 ---
 33. Instale as dependencias: `pip install -r requirements.txt`
 ---
