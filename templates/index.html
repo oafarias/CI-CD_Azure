@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pipeline de Sucesso</title>
-    <!-- O Flask usa o {{ url_for}} para acher arquivos na pasta static -->
+    <!-- O Flask usa o {{ url_for}} para achar arquivos na pasta static -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=1.1"> 
 </head>
 <body>
     <div class="container">
-        <div class="class glow-box">
+        <div class="glow-box">
             <h1 class="glitch" data-text="Deploy Concluído!">Deploy Concluído!</h1>
-            <p class="id typewriter"></p>
-            <div class="class badges">
+            <p id="typewriter" class="status-text typewriter"></p>
+            <div class="badges">
                 <span class="badge azure">Azure VM</span>
                 <span class="badge docker">Docker</span>
                 <span class="badge github">GitHub Actions</span>
@@ -21,6 +22,6 @@
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}?v=1.1"></script>
 </body>
 </html>

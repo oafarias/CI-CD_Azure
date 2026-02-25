@@ -279,19 +279,19 @@ if __name__ == '__main__':
 28. Crie o arquivo `templates/index.html`:
 ```HTML
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pipeline de Sucesso</title>
-    <!-- O Flask usa o {{ url_for }} para achar arquivos na pasta static -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- O Flask usa o {{ url_for}} para achar arquivos na pasta static -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=1.1"> 
 </head>
 <body>
     <div class="container">
         <div class="glow-box">
-            <h1 class="glitch" data-text="🚀 Deploy Concluído!">🚀 Deploy Concluído!</h1>
-            <p id="typewriter"></p>
+            <h1 class="glitch" data-text="Deploy Concluído!">Deploy Concluído!</h1>
+            <p id="typewriter" class="status-text typewriter"></p>
             <div class="badges">
                 <span class="badge azure">Azure VM</span>
                 <span class="badge docker">Docker</span>
@@ -301,8 +301,8 @@ if __name__ == '__main__':
             <button id="action-btn" class="cyber-btn">Testar Conexão</button>
         </div>
     </div>
-    
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}?v=1.1"></script>
 </body>
 </html>
 ```
