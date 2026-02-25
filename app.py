@@ -1,10 +1,10 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app=Flask(__name__)
 
 @app.route('/')
 def hello():
-    return "<h1>Hello World!</h1><p>This is a CI/CD pipeline test with Azure DevOps and Docker.</p>"
+    return render_template('index.html') #index.html referenciado no retorno
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)

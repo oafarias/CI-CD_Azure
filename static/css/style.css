@@ -1,0 +1,77 @@
+@import url('[https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap](https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap)');
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: 'Fira Code', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    padding: 2rem;
+}
+
+.glow-box {
+    background: #161b22;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(88, 166, 255, 0.2);
+    border: 1px solid #30363d;
+}
+
+h1 {
+    color: #58a6ff;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+#typewriter {
+    min-height: 24px;
+    color: #8b949e;
+    margin-bottom: 2rem;
+}
+
+.badges {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.azure {
+    background-color: #0078d4;
+    color: white;
+}
+.docker {
+    background-color: #2496ed;
+    color: white;
+}
+.github {
+    background-color: #181717;
+    color: white;
+}
+.caddy {
+    background-color: #00add8;
+    color: white;
+}
+
+.cyber-btn {
+    background: 58a6ff;
+    color: 0d1117;
+    box-shadow: 0 0 15px #58a6ff;
+}

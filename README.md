@@ -237,3 +237,186 @@ git push origin main
 ```
 ---
 25. Acompanhe o Deploy na aba Actions do repositorio. Quando terminar acesse seu dominio pelo navegador.
+---
+## Parte 8. Adicionando Frontend (HTML, CSS, JS)
+Para deixarmos o Flask servir páginas web reais, precisamos organizar nosso arquivos em pastas específicas.
+26. No VSCode, crie as seguintes pastas na raíz do seu projeto:
+* `templates` (para o HTML)
+* `static/css` (para o CSS)
+* `static/js` (para o JS)\
+A estrutura vai ficar assim:
+```
+📦 seu-projeto
+ ┣ 📂 static
+ ┃ ┣ 📂 css
+ ┃ ┃ ┗ 📜 style.css
+ ┃ ┗ 📂 js
+ ┃ ┃ ┗ 📜 main.js
+ ┣ 📂 templates
+ ┃ ┗ 📜 index.html
+ ┣ 📜 app.py
+ ┣ 📜 Dockerfile
+ ┣ 📜 docker-compose.yml
+ ┣ 📜 Caddyfile
+ ┗ 📜 requirements.txt
+```
+---
+27. Edite o `app.py` para usar o `render_template` do Flask:
+```python
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    # Agora o Flask vai procurar o arquivo index.html dentro da pasta /templates
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+```
+---
+28. Crie o arquivo `templates/index.html`:
+```HTML
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipeline de Sucesso</title>
+    <!-- O Flask usa o {{ url_for }} para achar arquivos na pasta static -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="glow-box">
+            <h1 class="glitch" data-text="🚀 Deploy Concluído!">🚀 Deploy Concluído!</h1>
+            <p id="typewriter"></p>
+            <div class="badges">
+                <span class="badge azure">Azure VM</span>
+                <span class="badge docker">Docker</span>
+                <span class="badge github">GitHub Actions</span>
+                <span class="badge caddy">Caddy SSL</span>
+            </div>
+            <button id="action-btn" class="cyber-btn">Testar Conexão</button>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+```
+---
+29. Crie o arquivo `static/css/style.css`:
+```CSS
+@import url('[https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap](https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap)');
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: 'Fira Code', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    padding: 2rem;
+}
+
+.glow-box {
+    background: #161b22;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(88, 166, 255, 0.2);
+    border: 1px solid #30363d;
+}
+
+h1 {
+    color: #58a6ff;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+#typewriter {
+    min-height: 24px;
+    color: #8b949e;
+    margin-bottom: 2rem;
+}
+
+.badges {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.azure { background: #0078D4; color: white; }
+.docker { background: #2496ED; color: white; }
+.github { background: #181717; color: white; }
+.caddy { background: #00add8; color: white; }
+
+.cyber-btn {
+    background: transparent;
+    color: #58a6ff;
+    border: 2px solid #58a6ff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-family: inherit;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.cyber-btn:hover {
+    background: #58a6ff;
+    color: #0d1117;
+    box-shadow: 0 0 15px #58a6ff;
+}
+```
+---
+30. Crie o arquivo `static/js/main.js`:
+```JS
+// Efeito de digitação (Typewriter)
+const text = "O CI/CD está rodando perfeitamente e seguro com HTTPS.";
+const typewriterElement = document.getElementById("typewriter");
+let i = 0;
+
+function typeWriter() {
+    if (i < text.length) {
+        typewriterElement.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50);
+    }
+}
+
+// Inicia o efeito quando a página carrega
+window.onload = typeWriter;
+
+// Botão interativo
+document.getElementById('action-btn').addEventListener('click', () => {
+    alert("Conexão estabelecida com sucesso! Seu pipeline é incrível. 🚀");
+});
+```
+---
+## Por fim Faça o commit e observe o Github Actions:
+```BASH
+git add app.py .
+git commit -m "feat: adiciona interface web com dark mode"
+git push origin main
+```
+---
+Após a action rodar no GitHub, atualize o seu navegador.
