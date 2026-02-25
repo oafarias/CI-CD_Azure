@@ -1,0 +1,3 @@
+aaleff.me, www.aaleff.me {
+    reverse_proxy web:5000
+}

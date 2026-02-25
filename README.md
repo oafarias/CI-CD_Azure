@@ -2,6 +2,7 @@
 Este guia Documenta o processo de configuração de uma VM na Azure e a criação de um pipeline de CI/CD.
 
 ## Parte 1. Configuraçao da Máquina Virtual (VM)
+---
 1. atualize os pacotes de sistema:
 ```bash
 sudo apt update
@@ -75,6 +76,7 @@ Acesse seu IP pelo navegador. Se aparecer **Welcome to Nginx** funcionou!
 11. Crie uma pasta em seu pc e a abra com o VS Code e realize o pull do seu repositorio `git clone https://github.com/SEU_USER/SEU_REPO.git`
 ---
 ## Parte 4. Arquivos do Projeto
+---
 12. crie a pasta e o arquivo `.github/workflows/deploy.yml` e coloque o codigo abaixo:
 ```yaml
 name: Deploy to Azure VM
@@ -158,7 +160,7 @@ COPY . .
 CMD ["python", "app.py"]
 ```
 ---
-## Passo Final
+## Parte 5. Passo Final
 ---
 
 17. Faça o commit e o push no terminal
@@ -169,3 +171,69 @@ git push origin main
 ```
 ---
 18. Acompanhe o Deploy na aba Actions do repositorio. Assim que rodar, acesse o seu IP novamente pelo navegador e veja se a mensagem de que subiu corretamente está pronta.
+---
+## Parte 5. Apontamento de Domínio (DNS)
+---
+19. Acesse o Painel onde voce registrou o seu domínio (Registro.br, GoDaddy, Hostinger, Cloudflare, etc.).
+---
+20. Vá até a zona de **DNS** e crie um **Registro A** (A Record):
+* **Nome/Host**: `@` (ou deixe em branco, representa a raiz do seu site, ex: `meusite.com`)
+* **Valor/Destino/IP**: Cle o **IP da sua VM**.
+---
+21. (Opcional) Crie um registro `CNAME` para o `www`*(Dessa forma voce pode acessar o site tanto pelo meusite.com quanto pelo www.meusite.com)*
+* **Nome/Host**: `www`
+* **Valor/Destino**: meusite.com
+    *Nota: A propagação do DNS pode levar de alguns minutos a algumas horas.*
+
+---
+## Parte 6. Configuração do HTTPS Automático (Usando Caddy)
+Vamos usar o *Caddy Server* para interceptar o domínio e gerar o SSL/HTTPS automaticamente.
+---
+22. Modifique o seu `docker-compose.yml` na raiz do projeto para incluir o Caddy e esconder a porta do Flask:
+```yaml
+version: '3.8'
+
+services:
+    web:
+        build: .
+        # Retiramos as 'ports' da VM.
+        #ports:
+        #  - "80:5000"
+        restart: always
+    
+    caddy:
+        image: caddy:latest
+        restart: always
+    
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      -./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - web
+
+Volumes:
+    caddy_data:
+    caddy_config:
+```
+---
+23. Crie um arquivo chamado exatamente `Caddyfile` (sem extensão) na raiz do projeto:
+```
+meusite.com, www.meusite.com {
+    reverse_proxy web:5000
+}
+```
+---
+## Parte 7. Deploy do Caddy
+---
+24. Faça o commit e o push no terminal para ativar a action e subir tudo:
+```bash
+git add .
+git commit -m "feat: configuração de domínio e SSL via Caddy"
+git push origin main
+```
+---
+25. Acompanhe o Deploy na aba Actions do repositorio. Quando terminar acesse seu dominio pelo navegador.
