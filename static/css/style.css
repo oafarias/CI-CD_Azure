@@ -62,7 +62,7 @@ h1 {
     color: white;
 }
 .github {
-    background-color: #181717;
+    background-color: #356286;
     color: white;
 }
 .caddy {
@@ -71,7 +71,9 @@ h1 {
 }
 
 .cyber-btn {
-    background: 58a6ff;
-    color: 0d1117;
-    box-shadow: 0 0 15px #58a6ff;
+    background: #58a6ff;
+    color: #0d1117;
+    box-shadow: 0 0 5px #58a6ff;
+    border-radius: 5px;
+    padding: 10px 20px;
 }

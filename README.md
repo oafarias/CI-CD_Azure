@@ -178,7 +178,7 @@ git push origin main
 ---
 20. Vá até a zona de **DNS** e crie um **Registro A** (A Record):
 * **Nome/Host**: `@` (ou deixe em branco, representa a raiz do seu site, ex: `meusite.com`)
-* **Valor/Destino/IP**: Cle o **IP da sua VM**.
+* **Valor/Destino/IP**: Cole o **IP da sua VM**.
 ---
 21. (Opcional) Crie um registro `CNAME` para o `www`*(Dessa forma voce pode acessar o site tanto pelo meusite.com quanto pelo www.meusite.com)*
 * **Nome/Host**: `www`
@@ -412,11 +412,27 @@ document.getElementById('action-btn').addEventListener('click', () => {
 });
 ```
 ---
-## Por fim Faça o commit e observe o Github Actions:
+## Parte 9. Teste a pagina com o ambiente virtual isolado(venv)
+31. Crie o ambiente virtual: `python -m venv .venv`
+---
+32. Ative o ambiente virtual: No Windows: `.venv\Scripts\activate`, No Mac:`source venv/bin/activate`.
+---
+33. Instale as dependencias: `pip install -r requirements.txt`
+---
+34. Atualize os pacotes: `python.exe -mpip install --upgrade pip`
+---
+35. Inicie a aplicação: `python app.py` ou `flask run --debug` 
+---
+36. Acesse pelo navegador `http://127.0.0.1:5000`.
+---
+37. Se o site for exibido corretamente. Pare o run `Ctrl+c` e saia do venv `deactivate`.
+---
+38. Por fim Faça o commit e observe o Github Actions:
 ```BASH
 git add app.py .
 git commit -m "feat: adiciona interface web com dark mode"
 git push origin main
 ```
 ---
-Após a action rodar no GitHub, atualize o seu navegador.
+Verifique a aba de actions e veja seu site funcionando.
+---
