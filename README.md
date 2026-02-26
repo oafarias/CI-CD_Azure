@@ -1,9 +1,9 @@
 # Guia de Deploy automatico (CI/CD) Azure - Docker - GitHub Actions
 Este guia Documenta o processo de configuração de uma VM na Azure e a criação de um pipeline de CI/CD.
 
-## Parte 1. [ ] Configuraçao da Máquina Virtual (VM)
+## Parte 1. Configuraçao da Máquina Virtual (VM)
 ---
-1. [ ] [ ] atualize os pacotes de sistema:
+1. [ ] atualize os pacotes de sistema:
 ```bash
 sudo apt update
 
@@ -22,7 +22,7 @@ sudo usermod -aG docker $USER
 ---
 4. [ ] Após rodar o ultimo comando é necessário sair (`exit`) e entrar de novo(`ssh ...`).
 ---
-## Parte 2. [ ] Teste manual do Nginx
+## Parte 2. Teste manual do Nginx
 ---
 5. [ ] Para saber se está rodando, execute o comando `docker ps` se não aparecer nenhum erro e retornar o cabeçalho abaixo, o procedimento rodou corretamente.
 ```bash
@@ -38,7 +38,7 @@ cd app-teste
 nano docker-compose.yml
 ```
 ---
-7. [ ] Vai abrir a tela de ediçao. [ ] Cole o conteúdo abaixo:
+7. [ ] Vai abrir a tela de ediçao. Cole o conteúdo abaixo:
 ```yaml
 services:
     web:
@@ -57,7 +57,7 @@ docker compose up -d
 Acesse seu IP pelo navegador. Se aparecer **Welcome to Nginx** funcionou!
 
 ---
-## Parte 3. [ ] Configuraçao do GitHub
+## Parte 3. Configuraçao do GitHub
 ---
 9. [ ] Crie um repositorio público no github
 ---
@@ -69,13 +69,13 @@ Acesse seu IP pelo navegador. Se aparecer **Welcome to Nginx** funcionou!
 |USER|O nome do usuário da VM|Painel Azure|
 |KEY|Coloque o Key (sem o .pub)*|No Mac/Windows (PowerShell): `cat ~/.ssh/id_ed25519`|
 
-- *Para copiar o arquivo rode no iTerm local o comando no Mac: `cat ~/.ssh/id_ed25519 | pbcopy`. [ ] 
+- *Para copiar o arquivo rode no iTerm local o comando no Mac: `cat ~/.ssh/id_ed25519 | pbcopy`.
 - *No Windows (powershell): `cat ~/.ssh/id_ed25519 | clip` (cmd): `type ~/.ssh/id_ed25519 | clip`.
 
 ---
 11. [ ] Crie uma pasta em seu pc e a abra com o VS Code e realize o pull do seu repositorio `git clone https://github.com/SEU_USER/SEU_REPO.git`
 ---
-## Parte 4. [ ] Arquivos do Projeto
+## Parte 4. Arquivos do Projeto
 ---
 12. [ ] crie a pasta e o arquivo `.github/workflows/deploy.yml` e coloque o codigo abaixo:
 ```yaml
@@ -156,11 +156,11 @@ FROM python:3.9-slim
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY . [ ] .
+COPY . .
 CMD ["python", "app.py"]
 ```
 ---
-## Parte 5. [ ] Passo Final
+## Parte 5. Passo Final
 ---
 
 17. [ ] Faça o commit e o push no terminal
@@ -172,7 +172,7 @@ git push origin main
 ---
 18. [ ] Acompanhe o Deploy na aba Actions do repositorio. [ ] Assim que rodar, acesse o seu IP novamente pelo navegador e veja se a mensagem de que subiu corretamente está pronta.
 ---
-## Parte 5. [ ] Apontamento de Domínio (DNS)
+## Parte 5. Apontamento de Domínio (DNS)
 ---
 19. [ ] Acesse o Painel onde voce registrou o seu domínio (Registro.br, GoDaddy, Hostinger, Cloudflare, etc.).
 ---
@@ -186,7 +186,7 @@ git push origin main
     *Nota: A propagação do DNS pode levar de alguns minutos a algumas horas.*
 
 ---
-## Parte 6. [ ] Configuração do HTTPS Automático (Usando Caddy)
+## Parte 6. Configuração do HTTPS Automático (Usando Caddy)
 Vamos usar o *Caddy Server* para interceptar o domínio e gerar o SSL/HTTPS automaticamente.
 ---
 22. [ ] Modifique o seu `docker-compose.yml` na raiz do projeto para incluir o Caddy e esconder a porta do Flask:
@@ -227,7 +227,7 @@ meusite.com, www.meusite.com {
 }
 ```
 ---
-## Parte 7. [ ] Deploy do Caddy
+## Parte 7. Deploy do Caddy
 ---
 24. [ ] Faça o commit e o push no terminal para ativar a action e subir tudo:
 ```bash
@@ -238,7 +238,7 @@ git push origin main
 ---
 25. [ ] Acompanhe o Deploy na aba Actions do repositorio. [ ] Quando terminar acesse seu dominio pelo navegador.
 ---
-## Parte 8. [ ] Adicionando Frontend (HTML, CSS, JS)
+## Parte 8. Adicionando Frontend (HTML, CSS, JS)
 Para deixarmos o Flask servir páginas web reais, precisamos organizar nosso arquivos em pastas específicas.
 26. [ ] No VSCode, crie as seguintes pastas na raíz do seu projeto:
 * `templates` (para o HTML)
