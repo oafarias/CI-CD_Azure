@@ -18,6 +18,7 @@ curl -fsSL https://get.docker.com | sh
 3. [ ] Adicione o seu usuário ao grupo Docker: Isso evita ter que usar `sudo` toda hora:
 ```bash
 sudo usermod -aG docker $USER
+newgrp docker
 ```
 ---
 4. [ ] Após rodar o ultimo comando é necessário sair (`exit`) e entrar de novo(`ssh ...`).
